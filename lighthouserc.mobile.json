@@ -1,0 +1,52 @@
+{
+  "$schema": "https://raw.githubusercontent.com/GoogleChrome/lighthouse-ci/main/docs/configuration.md",
+  "ci": {
+    "collect": {
+      "numberOfRuns": 3,
+      "settings": {
+        "preset": "perf",
+        "formFactor": "mobile",
+        "screenEmulation": {
+          "mobile": true,
+          "width": 412,
+          "height": 823,
+          "deviceScaleFactor": 1.75,
+          "disabled": false
+        },
+        "throttlingMethod": "simulate",
+        "onlyCategories": [
+          "performance",
+          "accessibility",
+          "best-practices",
+          "seo"
+        ]
+      }
+    },
+    "assert": {
+      "assertions": {
+        "categories:performance": ["error", { "minScore": 0.9 }],
+        "categories:accessibility": ["error", { "minScore": 0.95 }],
+        "categories:best-practices": ["error", { "minScore": 0.95 }],
+        "categories:seo": ["error", { "minScore": 0.95 }],
+
+        "first-contentful-paint": ["error", { "maxNumericValue": 2200 }],
+        "largest-contentful-paint": ["error", { "maxNumericValue": 2800 }],
+        "cumulative-layout-shift": ["error", { "maxNumericValue": 0.1 }],
+        "total-blocking-time": ["error", { "maxNumericValue": 250 }],
+        "speed-index": ["error", { "maxNumericValue": 3400 }],
+        "interactive": ["error", { "maxNumericValue": 3800 }],
+
+        "resource-summary:script:size": ["error", { "maxNumericValue": 120000 }],
+        "resource-summary:total:size": ["error", { "maxNumericValue": 600000 }],
+        "unminified-javascript": ["error", { "maxNumericValue": 0 }],
+        "unminified-css": ["error", { "maxNumericValue": 0 }],
+        "uses-text-compression": ["error", { "maxLength": 0 }],
+        "font-display": ["error", { "maxLength": 0 }],
+        "errors-in-console": ["error", { "maxLength": 0 }]
+      }
+    },
+    "upload": {
+      "target": "temporary-public-storage"
+    }
+  }
+}

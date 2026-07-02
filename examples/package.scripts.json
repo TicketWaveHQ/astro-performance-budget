@@ -1,0 +1,13 @@
+{
+  "//": "Copy the entries under \"scripts\" into your Astro project's package.json. These assume @lhci/cli is installed as a devDependency (npm i -D @lhci/cli) or run via npx.",
+  "scripts": {
+    "build": "astro build",
+    "preview": "astro preview",
+    "lhci": "lhci autorun --config=./lighthouserc.json --collect.staticDistDir=./dist",
+    "lhci:mobile": "lhci autorun --config=./lighthouserc.mobile.json --collect.staticDistDir=./dist",
+    "perf": "npm run build && npm run lhci"
+  },
+  "devDependencies": {
+    "@lhci/cli": "^0.14.0"
+  }
+}

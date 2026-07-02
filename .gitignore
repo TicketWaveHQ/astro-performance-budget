@@ -1,0 +1,16 @@
+# Lighthouse CI local output
+.lighthouseci/
+lhci_reports/
+
+# Node
+node_modules/
+npm-debug.log*
+
+# Astro build output (present only if you copy this into a real site)
+dist/
+.astro/
+
+# Editor / OS
+.DS_Store
+.idea/
+.vscode/
