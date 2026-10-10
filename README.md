@@ -10,7 +10,7 @@ No dashboard to sign up for, no service to pay for, no telemetry. It is a `light
 - **`budget.json`** - the same ceilings in Lighthouse's native budget format, for path-scoped overrides.
 - **[`BUDGETS.md`](./BUDGETS.md)** - every number explained, with guidance on when and how to move it.
 
-Built and maintained by [UK Web Marketing](https://ukwebmarketing.com), where fast, static marketing sites are the default. It pairs naturally with our starter kit at [github.com/sansware/site-templates](https://github.com/sansware/site-templates).
+Built and maintained by [TicketWave HQ](https://ticketwavehq.com). [VerySEOly](https://veryseoly.com) holds the sites it builds to this budget, so a regression fails the pull request rather than reaching a visitor.
 
 ## Why a performance budget
 
@@ -118,8 +118,8 @@ There is no runtime dependency on this repository. You copy the files in and the
 
 ## Related work
 
-- **[UK Web Marketing](https://ukwebmarketing.com)** - the studio behind this budget. Fast, static, accessible marketing sites, built to a performance budget as standard rather than as an afterthought.
-- **[sansware/site-templates](https://github.com/sansware/site-templates)** - starter templates for marketing sites that begin inside these budgets, so the check is green from the first commit.
+- **[VerySEOly](https://veryseoly.com)** - websites built and run for UK businesses, held to this budget as standard rather than as an afterthought.
+- **[TicketWave HQ, Growth & Digital](https://ticketwavehq.com/practices/growth-and-digital)** - the practice this budget belongs to.
 
 ## Contributing
 
