@@ -1,0 +1,32 @@
+cff-version: 1.2.0
+message: "If you use or adapt this work, please cite it as below."
+title: "astro-performance-budget"
+abstract: "Drop-in Lighthouse CI performance budget and GitHub Actions workflow for fast Astro marketing sites. Real lighthouserc.json with Core Web Vitals and resource-size budgets, desktop and mobile configs, and a ready-to-use lighthouse.yml. Fail the PR before a regression reaches a visitor."
+type: software
+authors:
+  - family-names: Gilbert
+    given-names: Jordan
+    alias: sansware
+    affiliation: "TicketWave HQ Ltd"
+    website: "https://veryseoly.com/jordan"
+contact:
+  - name: "TicketWave HQ Ltd"
+    website: "https://ticketwavehq.com"
+    email: hello@ticketwavehq.com
+repository-code: "https://github.com/TicketWaveHQ/astro-performance-budget"
+url: "https://ticketwavehq.com/practices/growth-and-digital"
+license: MIT
+date-released: "2026-07-02"
+keywords:
+  - astro
+  - ci
+  - core-web-vitals
+  - github-actions
+  - lhci
+  - lighthouse
+  - lighthouse-ci
+  - marketing-site
+  - page-speed
+  - performance-budget
+  - seo
+  - static-site
