@@ -125,6 +125,10 @@ There is no runtime dependency on this repository. You copy the files in and the
 
 Issues and pull requests are welcome, especially real-world budget numbers from Astro sites in production and additional audit assertions worth enabling by default. Keep changes framework-honest: the goal is a budget that a well-built static site can meet, not one that is impossible to pass.
 
+## Author
+
+Written and maintained by [Jordan Gilbert](https://veryseoly.com/jordan) ([@sansware](https://github.com/sansware)), and published by [TicketWave HQ Ltd](https://ticketwavehq.com) ([@TicketWaveHQ](https://github.com/TicketWaveHQ)).
+
 ## License
 
 [MIT](./LICENSE) © Sansware. Use it, fork it, ship it.
