@@ -119,7 +119,7 @@ There is no runtime dependency on this repository. You copy the files in and the
 ## Related work
 
 - **[VerySEOly](https://veryseoly.com)** - websites built and run for UK businesses, held to this budget as standard rather than as an afterthought.
-- **[TicketWave HQ, Growth & Digital](https://ticketwavehq.com/practices/growth-and-digital)** - the practice this budget belongs to.
+- **[TicketWave HQ, Growth & Digital](https://ticketwavehq.com/practices/digital)** - the practice this budget belongs to.
 
 ## Contributing
 
