@@ -1,0 +1,88 @@
+name: Lighthouse CI
+
+# This repository has no Astro site of its own, so instead of building one it
+# runs both budgets against two static pages in test/fixture/, then checks
+# that a deliberate regression fails. That proves the configs load, every
+# asserted audit exists in the pinned Lighthouse, and the assertions bite.
+# Reports stay on the runner; nothing is uploaded.
+#
+# The workflow you copy into your own project is templates/lighthouse.yml.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: lighthouse-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  lighthouse:
+    name: Assert performance budget
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - name: Set up Node
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
+        with:
+          node-version: "24"
+
+      - name: JSON files parse
+        run: |
+          for f in lighthouserc.json lighthouserc.mobile.json budget.json examples/package.scripts.json; do
+            node -e 'JSON.parse(require("fs").readFileSync(process.argv[1], "utf8"))' "$f" && echo "ok  $f"
+          done
+
+      - name: Template workflow parses
+        run: |
+          python3 -c 'import yaml' 2>/dev/null || {
+            sudo apt-get update -q && sudo apt-get install -y -q python3-yaml
+          }
+          python3 -c 'import yaml; yaml.safe_load(open("templates/lighthouse.yml")); print("ok  templates/lighthouse.yml")'
+
+      - name: Install Lighthouse CI
+        run: npm install --global @lhci/cli@0.15.x
+
+      - name: Desktop budget against the fixture
+        run: >-
+          lhci autorun --config=./lighthouserc.json
+          --collect.staticDistDir=./test/fixture
+          --upload.target=filesystem --upload.outputDir=./lhci_reports/desktop
+
+      - name: Mobile budget against the fixture
+        run: >-
+          lhci autorun --config=./lighthouserc.mobile.json
+          --collect.staticDistDir=./test/fixture
+          --upload.target=filesystem --upload.outputDir=./lhci_reports/mobile
+
+      - name: A regression fails the budget
+        run: |
+          mkdir -p "$RUNNER_TEMP/regressed"
+          sed 's#</body>#<script>console.error("deliberate regression")</script></body>#' \
+            test/fixture/index.html > "$RUNNER_TEMP/regressed/index.html"
+          if lhci autorun --config=./lighthouserc.json \
+              --collect.staticDistDir="$RUNNER_TEMP/regressed" --collect.numberOfRuns=1 \
+              --upload.target=filesystem --upload.outputDir="$RUNNER_TEMP/regressed-reports"; then
+            echo "::error::A page with a console error passed the desktop budget."
+            exit 1
+          fi
+          echo "Failed as expected."
+
+      - name: House style (no em-dashes)
+        run: |
+          if grep -rnP "\x{2014}" --exclude-dir=.git --exclude-dir=lhci_reports \
+              --include='*.md' --include='*.json' --include='*.yml' \
+              --include='*.html' --include='*.cff' .; then
+            echo "::error::Found em-dash characters (U+2014). Use a comma or a spaced hyphen instead."
+            exit 1
+          fi
+          echo "No em-dashes found."

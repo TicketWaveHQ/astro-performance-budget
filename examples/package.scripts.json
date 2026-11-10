@@ -1,5 +1,5 @@
 {
-  "//": "Copy the entries under \"scripts\" into your Astro project's package.json. These assume @lhci/cli is installed as a devDependency (npm i -D @lhci/cli) or run via npx.",
+  "//": "Copy the entries under \"scripts\" into your Astro project's package.json. These assume @lhci/cli 0.15 is installed as a devDependency (npm i -D @lhci/cli@0.15.x) or run via npx. The configs upload reports to temporary public storage; add --upload.target=filesystem to keep them local.",
   "scripts": {
     "build": "astro build",
     "preview": "astro preview",
@@ -8,6 +8,6 @@
     "perf": "npm run build && npm run lhci"
   },
   "devDependencies": {
-    "@lhci/cli": "^0.14.0"
+    "@lhci/cli": "~0.15.1"
   }
 }

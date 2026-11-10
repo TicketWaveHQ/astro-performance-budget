@@ -20,6 +20,11 @@ Each entry is `[level, options]`:
 - `maxLength` applies to opportunity and diagnostic audits, and asserts on the
   number of flagged items. `maxLength: 0` means the audit must be clean.
 
+Each URL is run three times. By default LHCI checks each assertion against the
+most favourable of the three runs (its `optimistic` aggregation), so a single
+noisy run does not fail the build. Set `"aggregationMethod": "median-run"`
+under `assert` to check the median run instead.
+
 ## Category scores
 
 | Category | Desktop | Mobile | Why |
@@ -47,7 +52,9 @@ edge of the acceptable band.
 ## Resource size and count budgets
 
 Sizes are asserted in bytes in `lighthouserc.json` and in kilobytes in the
-Lighthouse-native `budget.json`. They describe the same ceilings.
+Lighthouse-native `budget.json`. They describe the same ceilings. `budget.json`
+is an alternative to the assertions, not an addition: LHCI will not use both
+at once (see "Using budget.json instead" in the README).
 
 | Resource | Ceiling | Reasoning |
 | --- | --- | --- |
@@ -56,7 +63,7 @@ Lighthouse-native `budget.json`. They describe the same ceilings.
 | Stylesheet | 60 KB | Scoped component styles plus a small global sheet. |
 | Font | 120 KB | Roughly two `woff2` families with a couple of weights each. Subset aggressively. |
 | Image | 350 KB | Per-page image weight. Serve AVIF or WebP through Astro's image pipeline. |
-| Third party | 5 requests | Every tag is someone else's performance and privacy problem on your page. |
+| Third party | 5 requests (desktop, `warn`) | Every tag is someone else's performance and privacy problem on your page. |
 | Total | 600 KB | The whole-page ceiling. If you are near it, something is wrong. |
 
 ## Diagnostic and opportunity budgets
@@ -81,7 +88,8 @@ These audits fail the build when they find work left on the table:
 2. If the page legitimately needs the weight (a genuine hero video, an embedded
    map), raise only the specific ceiling, and leave a one-line comment in
    `lighthouserc.json` explaining why.
-3. Prefer path-scoped overrides in `budget.json` over loosening the global
-   number, so a single heavy page does not relax the budget for the whole site.
+3. Prefer a path-scoped `assertMatrix` entry (see "Loosen a single page" in
+   the README) over loosening the global number, so a single heavy page does
+   not relax the budget for the whole site.
 4. Never delete an assertion to make CI green. Downgrade `error` to `warn` if
    you must, and open an issue to earn it back.
