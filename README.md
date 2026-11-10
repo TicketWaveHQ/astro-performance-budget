@@ -181,4 +181,4 @@ Written and maintained by [Jordan Gilbert](https://veryseoly.com/jordan) ([@eu-j
 
 ## License
 
-[MIT](./LICENSE) © Sansware. Use it, fork it, ship it.
+[MIT](./LICENSE) © TicketWave HQ Ltd. Use it, fork it, ship it.
